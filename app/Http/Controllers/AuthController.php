@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Helpers\apiResponse;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -32,7 +32,6 @@ class AuthController extends Controller
                 'type' => 'bearer',
             ]
         ]);
-
         return apiResponse::success($user, 'User created successfully');
     }
 
@@ -62,5 +61,11 @@ class AuthController extends Controller
                 'type' => 'bearer',
             ]
         ]);
+    }
+
+    public function logout(Request $request)
+    {
+        auth()->logout();
+        return apiResponse::success([], 'Successfully logged out');
     }
 }
