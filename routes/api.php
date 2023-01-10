@@ -1,10 +1,11 @@
 <?php
 
 use App\Helpers\apiResponse;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,10 +21,13 @@ use Illuminate\Support\Facades\Route;
 Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'register')->name('register');
     Route::post('login', 'login')->name('login');
+    Route::post('logout', 'logout')->name('logout');
 });
 
 
 
 Route::middleware('auth:api')->group(function () {
     Route::get('profile', [ProfileController::class, 'profile'])->name('profile');
+
+    Route::get('categories', [CategoryController::class, 'index'])->name('categories');
 });
