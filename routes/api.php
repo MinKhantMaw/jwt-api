@@ -30,6 +30,7 @@ Route::controller(AuthController::class)->group(function () {
 Route::middleware('auth:api')->group(function () {
     // profile
     Route::get('profile', [ProfileController::class, 'profile'])->name('profile');
+    Route::get('profile-post', [ProfileController::class, 'posts'])->name('profile-post');
     // category
     Route::get('categories', [CategoryController::class, 'index'])->name('categories');
     // posts
