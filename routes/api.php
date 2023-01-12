@@ -33,6 +33,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('profile-post', [ProfileController::class, 'posts'])->name('profile-post');
     // category
     Route::get('categories', [CategoryController::class, 'index'])->name('categories');
+    Route::post('category/create', [CategoryController::class, 'create'])->name('category-create');
     // posts
     Route::get('posts/list', [PostController::class, 'index'])->name('posts');
     Route::post('post/create', [PostController::class, 'create'])->name('post-create');
