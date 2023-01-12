@@ -15,18 +15,18 @@ class PostController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Post::orderByDesc('created_at');
+        $posts = Post::with(['user','category','image'])->orderBy('id','desc');
 
         if ($request->category_id) {
-            $query->where('category_id', $request->category_id);
+            $posts->where('category_id', $request->category_id);
         }
 
         if ($request->search) {
-            $query->where(function ($query) use ($request) {
+            $posts->where(function ($query) use ($request) {
                 $query->where('title', 'like ', '%' . $request->search . '%')->orWhere('description', 'like ', '%' . $request->search . '%');
             });
         }
-        $posts = $query->paginate(10);
+        $posts = $posts->get();
         return apiResponse::success(PostResource::collection($posts), 'Post List Fetch Success');
         // return PostResource::collection($posts)->additional(['message' => 'success']);
     }
@@ -79,5 +79,13 @@ class PostController extends Controller
     {
         $post = Post::where('id', $id)->get();
         return apiResponse::success(PostDetailResource::collection($post));
+    }
+
+    public function delete(Request $request)
+    {
+        $post = Post::findOrFail($request->id);
+        return $post;
+        $post->delete();
+        return apiResponse::success($post, 'Post Delete Successful');
     }
 }

@@ -30,10 +30,14 @@ Route::controller(AuthController::class)->group(function () {
 Route::middleware('auth:api')->group(function () {
     // profile
     Route::get('profile', [ProfileController::class, 'profile'])->name('profile');
+    Route::get('profile-post', [ProfileController::class, 'posts'])->name('profile-post');
     // category
     Route::get('categories', [CategoryController::class, 'index'])->name('categories');
+    Route::post('category/create', [CategoryController::class, 'create'])->name('category-create');
+    // Route::get('category/delete/{id}', [CategoryController::class, 'delete'])->name('category-delete');
     // posts
     Route::get('posts/list', [PostController::class, 'index'])->name('posts');
     Route::post('post/create', [PostController::class, 'create'])->name('post-create');
     Route::get('post/{id}', [PostController::class, 'show'])->name('post-detail');
+    Route::post('post/delete', [PostController::class, 'delete'])->name('post-delete');
 });

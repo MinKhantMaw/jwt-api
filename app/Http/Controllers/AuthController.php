@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
+    public function register(Request $request): \Illuminate\Http\JsonResponse
     {
         $request->validate([
             'name' => 'required|string|min:5|max:20',
@@ -35,7 +35,7 @@ class AuthController extends Controller
         return apiResponse::success($user, 'User created successfully');
     }
 
-    public function login(Request $request)
+    public function login(Request $request): \Illuminate\Http\JsonResponse
     {
         $request->validate([
             'email' => 'required|string|email',
@@ -63,7 +63,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function logout(Request $request)
+    public function logout(Request $request): \Illuminate\Http\JsonResponse
     {
         auth()->logout();
         return apiResponse::success([], 'Successfully logged out');
