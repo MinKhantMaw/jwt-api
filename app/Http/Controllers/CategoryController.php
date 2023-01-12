@@ -16,21 +16,28 @@ class CategoryController extends Controller
         return apiResponse::success(CategoryResource::collection($categories), 'Category Fetch Success');
     }
 
-    public function create(Request $request) {
+    public function create(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
         ]);
 
         if ($validator->fails()) {
             return apiResponse::fail($validator->errors()->all());
-//            return response()->json($validator->errors()->all(), 422);
+            //            return response()->json($validator->errors()->all(), 422);
         }
 
 
-       $category = new Category();
-       $category->name = $request->name;
-       $category->save();
+        $category = new Category();
+        $category->name = $request->name;
+        $category->save();
 
-        return apiResponse::success($category,'Category Created Success');
+        return apiResponse::success($category, 'Category Created Success');
     }
+
+    // public function delete($id)
+    // {
+    //     $category = Category::find($id);
+    //     return $category;
+    // }
 }
